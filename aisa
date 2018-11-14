@@ -1,0 +1,3 @@
+#!/bin/zsh
+
+ssh -t xskrovin@aisa.fi.muni.cz "cd /home/xskrovin/Documents/; bash"

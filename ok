@@ -1,0 +1,3 @@
+#!/bin/zsh
+
+yarn flow && yarn lint --fix && yarn test && echo "--------------\n----- OK -----"

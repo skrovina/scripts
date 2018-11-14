@@ -1,0 +1,10 @@
+#!/bin/zsh
+
+if [[ $# != 1 ]]
+then
+    >&2 echo 'Use: toEpochTime "19.5.17 13:25:12"'
+    exit 1
+fi
+
+date -j -f "%d.%m.%y %H:%M:%S" "$1" +%s
+

@@ -1,0 +1,23 @@
+#!/bin/zsh
+
+if [[ "${1}" != "" ]]
+then
+    cd "${1}"
+fi
+
+local workspaces="$(echo *.xcworkspace 2>/dev/null)"
+
+local Xcode="$(xcodeApp)"
+
+if [[ "$workspaces" == "" ]]
+then
+    local projects="$(echo *.xcodeproj 2>/dev/null)"
+    if [[ "$projects" == "" ]]
+    then
+        echo 'ERROR: No *.xcworkspace or *xcodeproj file in current directory' >&2
+    else
+        open -a "$Xcode" "$projects"
+    fi
+else
+    open -a "$Xcode" "$workspaces"
+fi

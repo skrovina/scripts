@@ -1,0 +1,65 @@
+#!/bin/zsh
+
+if [[ "$#" != 2 ]]
+then
+    >&2 echo "Use: polaroider <image> <output directory>"
+    exit 1
+fi
+
+image="$1"
+outDir="$2"
+
+base="${image##*/}"
+name="${base%.*}"
+
+outName="${name}-polaroid.png"
+outPath="${outDir}/${outName}"
+# echo "$name"
+# echo "Output path:" "$outPath"
+
+ratio="$(convert "$image" -format "%[fx:w/h]" info:)"
+
+pWidth=900
+pHeight=1200
+
+borderThin=33
+borderThick=68
+iWidth="$[pWidth - (borderThin * 2)]"
+
+squareBottomPadding="$[pHeight - iWidth - borderThick]"
+portraitMaxHeight="$[pHeight - (borderThick * 2)]"
+
+# echo "Ratio" "$ratio"
+if [[ "$ratio" -ge 0.9 && "$ratio" -le 1.1 ]]
+then
+# echo "Square or close"
+    convert "$image" \
+        -resize ${iWidth}x${iWidth} \
+        -gravity center \
+        -background white \
+        -extent ${iWidth}x${iWidth} \
+        -gravity northwest \
+        -splice ${borderThin}x${borderThick} \
+        -gravity southeast \
+        -splice ${borderThin}x${squareBottomPadding} \
+        "$outPath"
+
+    echo "Square polaroid saved to '$outPath'"
+else
+    rotation=0
+    if [[ "$ratio" > 1.0 ]]
+    then
+        rotation=90
+    fi
+    
+    convert "$image" \
+        -rotate "$rotation" \
+        -resize ${iWidth}x${portraitMaxHeight} \
+        -gravity center \
+        -background white \
+        -extent ${pWidth}x${pHeight} \
+        "$outPath"
+
+    echo "Landscape polaroid saved to '$outPath'"
+fi
+

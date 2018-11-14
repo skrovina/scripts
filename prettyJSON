@@ -1,0 +1,8 @@
+#!/bin/zsh
+
+if [[ "$#" == 1 && "$1" != "" ]]
+then
+    cat "$1" | python -mjson.tool
+else
+    python -mjson.tool
+fi

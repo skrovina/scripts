@@ -1,0 +1,3 @@
+#!/bin/zsh
+
+vim -R -u NONE '+syntax on' '+set number' "$@"

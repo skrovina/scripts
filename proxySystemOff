@@ -1,0 +1,9 @@
+#!/bin/zsh
+
+local NetworkService='Wi-Fi'
+
+for opt in -setwebproxystate \
+    -setsecurewebproxystate
+do
+    networksetup "$opt" "$NetworkService" off
+done

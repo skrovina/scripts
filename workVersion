@@ -1,0 +1,5 @@
+#!/bin/zsh
+
+local Xcode="$(xcode-select -p | sed -e 's/\(^.*\/Xcode.*\.app\).*/\1/')"
+
+echo "$(mdls -name kMDItemVersion -raw $Xcode)"

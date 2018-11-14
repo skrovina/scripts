@@ -1,0 +1,23 @@
+#!/bin/zsh
+
+local DefaultProxyIP='cache34.ics.muni.cz'
+local DefaultProxyPort='5555'
+
+local SystemProxyIP=''
+local SystemProxyPort=''
+if (( $# == 2 ))
+then
+    SystemProxyIP="$1"
+    SystemProxyPort="$2"
+else
+    SystemProxyIP="$DefaultProxyIP"
+    SystemProxyPort="$DefaultProxyPort"
+fi
+
+local NetworkService='Wi-Fi'
+for opt in -setsecurewebproxy \
+    -setwebproxy 
+do
+    networksetup "$opt" "$NetworkService" "$SystemProxyIP" "$SystemProxyPort"
+done
+

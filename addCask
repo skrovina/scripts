@@ -1,0 +1,7 @@
+#!/bin/zsh
+
+filePath="$Scripting/Scripts/Files/Casks.txt"
+echo "$@" >> "$filePath"
+
+echo "Added '$@' to '$filePath'"
+echo "$(tail -n 5 "$filePath")"

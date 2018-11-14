@@ -1,0 +1,3 @@
+#!/bin/zsh
+
+newpl "$@" && vim "$1"

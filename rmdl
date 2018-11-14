@@ -1,0 +1,4 @@
+#!/bin/zsh
+
+rdl --rm $@
+lsdl

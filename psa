@@ -1,0 +1,3 @@
+#!/bin/zsh
+
+ps -x -o command | grep -i "$@"

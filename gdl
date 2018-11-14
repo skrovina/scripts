@@ -1,0 +1,4 @@
+#!/bin/zsh
+
+cd ~/'Downloads'
+git clone --depth 1 "$@"

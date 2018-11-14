@@ -1,0 +1,6 @@
+#!/bin/zsh
+
+for i in $@
+do
+    open "$i"
+done

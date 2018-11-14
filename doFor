@@ -1,0 +1,12 @@
+#!/bin/zsh
+
+argumentPosition="1"
+programName="$1"
+for i in $@
+do
+    if [[ "$argumentPosition" != "1" ]]
+    then
+        "$programName" "$i"
+    fi
+    argumentPosition=$[$argumentPosition + 1]
+done

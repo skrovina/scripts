@@ -1,0 +1,12 @@
+#!/bin/zsh
+
+if [[ "$1" == "" ]]
+then
+    echo "ERROR: Filename argument missing!"
+    return 1
+else
+    for name in $@
+    do
+        echo "% Prolog file\n%\n" >> "${name}.pl"
+    done
+fi

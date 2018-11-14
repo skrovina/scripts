@@ -1,0 +1,16 @@
+#!/bin/zsh
+
+local workspaces="$(echo *.xcworkspace 2>/dev/null)"
+
+if [[ "$workspaces" == "" ]]
+then
+    local projects="$(echo *.xcodeproj 2>/dev/null)"
+    if [[ "$projects" == "" ]]
+    then
+        echo 'ERROR: No *.xcworkspace or *xcodeproj file in current directory' >&2
+    else
+        open -a 'Xcode-beta' "$projects"
+    fi
+else
+    open -a 'Xcode-beta' "$workspaces"
+fi

@@ -1,0 +1,9 @@
+#!/bin/zsh
+
+if [[ "$1" == "" ]]
+then
+    echo "ERROR: Filename argument missing!"
+    return 1
+else
+    echo '#!/bin/zsh\n' > "$@"
+fi

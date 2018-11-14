@@ -1,0 +1,4 @@
+#!/bin/zsh
+
+cd "$Repos/simple-logger"
+npm start

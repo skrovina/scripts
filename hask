@@ -1,0 +1,3 @@
+#!/bin/zsh
+
+ghc -e ${@} "$HOME/Dropbox/scripting/haskell/imports.hs"

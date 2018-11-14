@@ -1,0 +1,5 @@
+#!/bin/zsh
+
+encoded_value=$(python -c "import urllib; print urllib.quote('''""${*}""''')")
+
+open "twodo://x-callback-url/add?task=${encoded_value}"

@@ -1,0 +1,48 @@
+#!/bin/zsh
+
+if [[ "$#" < 2 ]]
+then
+    >&2 echo "Use: polaroid-merger <image1> <image2> ... <imageN> <output directory>"
+    exit 1
+fi
+
+Args=( ${@[1, -1]} )
+picCount=$[${#Args[@]} - 1]
+
+if [[ $[$picCount % 2] == 1 ]]
+then
+    >&2 echo "Error: Odd number of pictures to be merged. Use with even number of pictures — e.g. use one picture twice."
+    exit 1
+fi
+
+Pics=( ${Args[1, ${picCount}]} )
+outDir="${Args[ $[$picCount + 1] ]}"
+
+pos=1
+index=1
+while [[ $pos -le ($picCount - 1) ]]
+do
+    left="${Pics[$pos]}"
+    right="${Pics[ $[pos + 1] ]}"
+
+    echo "Combining $index:\n  left: $left\n  right: $right"
+
+    pWidth="(convert "$left" -format "%[fx:w]" info:)"
+    pHeight="(convert "$left" -format "%[fx:h]" info:)"
+
+    randomHash="$(echo "$(date) $left $right" | md5 | cut -c1-6)"
+    outPath="${outDir}/${index}-${randomHash}-double-polaroid.jpg"
+
+    echo "  => ${outPath}"
+
+    convert "$left" "$right" \
+        +append \
+        -fill none \
+        +antialias \
+        -stroke 'gray(80%)' -strokewidth 2 \
+        -draw "stroke-dasharray 2 20 line 900.5,0 900.5,1200" \
+        "${outPath}"
+
+    pos=$[pos + 2]
+    index=$[index + 1]
+done

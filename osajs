@@ -1,0 +1,4 @@
+#!/bin/zsh
+
+# -s s    ### output is recompilable
+osascript -l JavaScript -e "$@"
