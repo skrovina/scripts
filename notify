@@ -1,5 +1,3 @@
 #!/bin/zsh
 
-open -a terminal-notifier --args -sound "Ping" -message $@
-
-# notify "message with spaces" -activate 'com.apple.AddressBook' -subtitle 'Finished' -group 'address-book-sync' -activate 'com.apple.AddressBook'
+osascript -e 'display notification "'"$@"'" with title "👋" sound name "Glass"'

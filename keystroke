@@ -1,0 +1,3 @@
+#!/bin/zsh
+
+osascript -l JavaScript -e "Application('System Events').keystroke('$@')"

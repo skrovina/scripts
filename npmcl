@@ -1,0 +1,4 @@
+#!/bin/zsh
+
+rm -rf ./node_modules && rm -rf ./lib; npm i && npm start
+
