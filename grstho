@@ -1,0 +1,26 @@
+#!/bin/bash
+
+CurrentBranch="$(git rev-parse --abbrev-ref HEAD)"
+Remote="$(git remote | cut -d " " -f1)"
+ResetBranch="$Remote/$CurrentBranch"
+
+# Check if there's something to stash
+OldSha="$(git rev-parse -q --verify refs/stash)"
+git stash save -q  # add options as desired here
+NewSha="$(git rev-parse -q --verify refs/stash)"
+if [ "$OldSha" = "$NewSha" ]; then
+    MadeStashEntry=false
+else
+    MadeStashEntry=true
+fi
+
+
+git fetch "$Remote" "$CurrentBranch" && \
+    git reset --hard "$ResetBranch"
+
+
+if [[ "$MadeStashEntry" == true && "$?" == 0 ]]
+then
+    git stash pop
+fi
+

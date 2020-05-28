@@ -1,0 +1,16 @@
+#!/bin/bash
+
+if [[ "$#" < 2 || "$1" == "--help" ]]
+then
+    >&2 echo "Usage: findGrep <directory> <pattern> [other find flags...]"
+    >&2 echo
+    >&2 echo "   finds pattern in all files in the directory"
+    exit 1
+fi
+
+Directory="$1"
+Pattern="$2"
+AllArgsArr=( "$@" )
+OtherFindFlagsArr=( "${AllArgsArr[@]:2}" )
+
+find "$Directory" -type f -exec grep -i "$Pattern" {} \; -print "${OtherFindFlagsArr[@]}"

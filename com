@@ -1,15 +1,6 @@
 #!/bin/bash
 
 PullBranch="master"
-CurrentBranch="$(git rev-parse --abbrev-ref HEAD)"
-
-if [[ "$#" > 1 || "$1" == "--help" ]]
-then
-    >&2 echo "Usage: om [<merged-branch-name>]"
-    >&2 echo
-    >&2 echo "   <merged-branch-name> is name of a base branch that was previously merged into the master"
-    exit 1
-fi
 
 # Check if there's something to stash
 OldSha="$(git rev-parse -q --verify refs/stash)"
@@ -23,14 +14,6 @@ fi
 
 # checkout master, pull, rebase 
 git checkout "$PullBranch" && git pull
-git checkout "$CurrentBranch"
-if [[ "$#" == 1 ]]
-then
-    git rebase --onto "$PullBranch" "$1" "$CurrentBranch"
-else
-    git rebase "$PullBranch"
-fi
-
 
 if [[ "$MadeStashEntry" == true && "$?" == 0 ]]
 then

@@ -1,3 +1,10 @@
 #!/bin/zsh
 
-osascript -e 'display notification "'"$@"'" with title "👋" sound name "Glass"'
+if [[ "$#" < 2 ]]
+then
+    Title="👋"
+else
+    Title="$2"
+fi
+
+osascript -e 'display notification "'"$1"'" with title "'"$Title"'" sound name "Glass"'

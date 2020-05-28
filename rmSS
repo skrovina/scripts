@@ -1,0 +1,19 @@
+#!/bin/bash
+
+LocalPath="$(ss)"
+
+if [[ "$LocalPath" == "" ]]
+then
+    >&2 echo "No file"
+    notify "Nothing removed" "No snapshot path"
+    exit 1
+elif [ ! -f "$LocalPath" ]
+then
+    >&2 echo "No file at path '$LocalPath'"
+    notify "$LocalPath" "No file at path"
+    exit 2
+fi
+
+echo "Removing '$LocalPath'"
+rm "$LocalPath"
+notify "$LocalPath" "Removed Screenshot"
